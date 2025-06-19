@@ -1,11 +1,15 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Contatos;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 import dao.ContatosDAO;
 
@@ -15,7 +19,7 @@ import dao.ContatosDAO;
 @WebServlet(urlPatterns = { "/main" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private ContatosDAO dao = new ContatosDAO();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,7 +42,10 @@ public class Controller extends HttpServlet {
 
 	protected void listaContatos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("agenda.jsp");
+		ArrayList<Contatos> listaDeContatos = dao.listarContatos();
+		request.setAttribute("contatos", listaDeContatos);
+		RequestDispatcher rd = request.getRequestDispatcher("agenda.jsp");
+		rd.forward(request, response);
 	}
 
 }

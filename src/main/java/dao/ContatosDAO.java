@@ -2,6 +2,11 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import model.Contatos;
 
 
 public class ContatosDAO {
@@ -21,6 +26,31 @@ public class ContatosDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	//Metodo Para Listar Os Contatos Na Tabela
+	public ArrayList<Contatos> listarContatos(){
+		String sql = "SELECT *  FROM contato";
+		ArrayList<Contatos> lista = new ArrayList<>();
+		try {
+			Connection conn = conexao();
+			PreparedStatement pst = conn.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+			//Armazenar os compos em variaveis
+				Integer id = rs.getInt(1);
+				String nome = rs.getString(2);
+				String fone = rs.getString(3);
+				String email = rs.getString(4);
+			//Adicinar a lista
+				lista.add(new Contatos(id,nome,fone,email));
+			}
+			conn.close();
+			return lista;
+		} catch (Exception e) {
+			e.getStackTrace();
+			return null;
+		}	
 	}
 	
 }
