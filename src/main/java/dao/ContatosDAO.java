@@ -21,4 +21,7 @@ public class ContatosDAO {
 		}
 		return null;
 	}
+	public void testConnection() {
+		System.out.println(conexao());
+	}
 }
