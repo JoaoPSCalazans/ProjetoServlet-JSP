@@ -10,8 +10,8 @@
 <title>Agenda de Contatos</title>
 </head>
 <body>
-
 	<h1>Agendade de Contatos</h1>
+	<a href="insert">Adicionar</a>
 	<table>
 		<thead>
 			<tr>

@@ -16,10 +16,11 @@ import dao.ContatosDAO;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = { "/main" })
+@WebServlet(urlPatterns = { "/main","/insert" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ContatosDAO dao = new ContatosDAO();
+	private Contatos contato = new Contatos();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,6 +38,8 @@ public class Controller extends HttpServlet {
 		String path = request.getServletPath();
 		if (path.equals("/main")) {
 			listaContatos(request,response);
+		}else if(path.equals("/insert")) {
+			criarContato(request,response);
 		}
 	}
 
@@ -46,6 +49,16 @@ public class Controller extends HttpServlet {
 		request.setAttribute("contatos", listaDeContatos);
 		RequestDispatcher rd = request.getRequestDispatcher("agenda.jsp");
 		rd.forward(request, response);
+	}
+	
+	protected void criarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		contato.setNome("Pedro");
+		contato.setFone("77777777");
+		contato.setEmail("pedro@gmail.com");
+		
+		dao.criarContato(contato);
+		response.sendRedirect("main");
 	}
 
 }

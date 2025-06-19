@@ -52,5 +52,22 @@ public class ContatosDAO {
 			return null;
 		}	
 	}
+	//Adicionar mais um contato na Tabela
+	public void criarContato(Contatos contato) {
+		String sql = "INSERT INTO contato (nome,fone,email) VALUES (?, ?, ?)";
+		try {
+			Connection conn = conexao();
+			PreparedStatement pst = conn.prepareStatement(sql);
+			//Setando os valores dos campos do sql
+			pst.setString(1, contato.getNome());
+			pst.setString(2,contato.getFone());
+			pst.setString(3, contato.getEmail());
+			
+			pst.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
 	
 }
