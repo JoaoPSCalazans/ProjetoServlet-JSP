@@ -11,6 +11,7 @@ public class ContatosDAO {
 	private final String user = "root";
 	private final String password = "senha123";
 	
+	//Classe Responsavel Pela Conexão Com O Banco De Dados
 	private Connection conexao() {
 		try {
 			Class.forName(driver);
@@ -21,7 +22,5 @@ public class ContatosDAO {
 		}
 		return null;
 	}
-	public void testConnection() {
-		System.out.println(conexao());
-	}
+	
 }

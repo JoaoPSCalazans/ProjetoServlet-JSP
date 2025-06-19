@@ -12,27 +12,33 @@ import dao.ContatosDAO;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/main"})
+@WebServlet(urlPatterns = { "/main" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ContatosDAO con;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Controller() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		con = new ContatosDAO();
-		con.testConnection();
+	public Controller() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String path = request.getServletPath();
+		if (path.equals("/main")) {
+			listaContatos(request,response);
+		}
+	}
+
+	protected void listaContatos(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.sendRedirect("agenda.jsp");
 	}
 
 }
