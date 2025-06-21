@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.websocket.Extension.Parameter;
 import model.Contatos;
 
 import java.io.IOException;
@@ -53,12 +54,9 @@ public class Controller extends HttpServlet {
 	
 	protected void criarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		contato.setNome("Pedro");
-		contato.setFone("77777777");
-		contato.setEmail("pedro@gmail.com");
-		
-		dao.criarContato(contato);
+		System.out.println(request.getParameter("nome"));
+		System.out.println(request.getParameter("fone"));
+		System.out.println(request.getParameter("email"));
 		response.sendRedirect("main");
 	}
-
 }

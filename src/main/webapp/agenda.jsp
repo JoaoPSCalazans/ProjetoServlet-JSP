@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>Agendade de Contatos</h1>
-	<a href="insert">Adicionar</a>
+	<a href="adicionar.html">Adicionar</a>
 	<table>
 		<thead>
 			<tr>
