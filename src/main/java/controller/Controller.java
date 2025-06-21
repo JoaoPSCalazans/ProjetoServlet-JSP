@@ -17,7 +17,7 @@ import dao.ContatosDAO;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = { "/main","/insert" })
+@WebServlet(urlPatterns = { "/main","/insert","/delete" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ContatosDAO dao = new ContatosDAO();
@@ -41,6 +41,8 @@ public class Controller extends HttpServlet {
 			listaContatos(request,response);
 		}else if(path.equals("/insert")) {
 			criarContato(request,response);
+		}else if(path.equals("/delete")) {
+			deletarContato(request,response);
 		}
 	}
 
@@ -60,4 +62,11 @@ public class Controller extends HttpServlet {
 		dao.criarContato(contato);
 		response.sendRedirect("main");
 	}
+	
+	protected void deletarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		dao.deletarContato(Integer.parseInt(request.getParameter("id")));
+		response.sendRedirect("main");
+	}
+	
 }

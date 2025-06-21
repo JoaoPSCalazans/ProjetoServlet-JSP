@@ -19,6 +19,7 @@
 				<th>Nome</th>
 				<th>Fone</th>
 				<th>Email</th>
+				<th>Options</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,6 +29,7 @@
 					<td><%out.print(con.getNome());%></td>
 					<td><%out.print(con.getFone());%></td>
 					<td><%out.print(con.getEmail());%></td>
+					<td><a href="delete?id=<%=con.getId()%>">Excluir</a></td>
 				</tr>
 			<%} %>
 		</tbody>

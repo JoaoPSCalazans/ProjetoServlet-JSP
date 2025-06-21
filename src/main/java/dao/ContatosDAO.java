@@ -70,4 +70,18 @@ public class ContatosDAO {
 		}
 	}
 	
+	//Metodo Para Deletar um Contato no banco de dados
+	public void deletarContato(Integer id) {
+		String sql = "DELETE FROM contato WHERE id = ?";
+		try {
+			Connection conn = conexao();
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
+	
 }
