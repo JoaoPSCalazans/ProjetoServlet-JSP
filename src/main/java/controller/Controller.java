@@ -54,9 +54,10 @@ public class Controller extends HttpServlet {
 	
 	protected void criarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getParameter("nome"));
-		System.out.println(request.getParameter("fone"));
-		System.out.println(request.getParameter("email"));
+		contato.setNome(request.getParameter("nome"));
+		contato.setFone(request.getParameter("fone"));
+		contato.setEmail(request.getParameter("email"));
+		dao.criarContato(contato);
 		response.sendRedirect("main");
 	}
 }
