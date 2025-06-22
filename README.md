@@ -36,3 +36,5 @@ https://github.com/JoaoPSCalazans/ProjetoServlet-JSP.git
  private final String user = "SEU_USUARIO";
 private final String password = "SUA_SENHA";
 ```
+## Autor
+ **autor** : João Pedro da Silva Calazans
