@@ -12,8 +12,8 @@ public class ContatosDAO {
 
 	private final String driver = "org.mariadb.jdbc.Driver";
 	private final String url = "jdbc:mariadb://localhost:3306/agenda_de_contatos";
-	private final String user = "root";
-	private final String password = "senha123";
+	private final String user = "SEU_USUARIO";
+	private final String password = "SUA_SENHA";
 
 	private Contatos contato = new Contatos();
 
