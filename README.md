@@ -1,5 +1,5 @@
 # Agenda de contatos
-Um projeto simples de uma agenda de contatos feito Java Web,Jsp e Servlets.
+Um projeto simples de uma agenda de contatos feito com Java Web,Jsp e Servlets.
 ## Funcionalidades:
 - **Listar todos os Contatos**
 - **Adicionar novo contato**
