@@ -16,6 +16,8 @@ public class ContatosDAO {
 	private final String user = "root";
 	private final String password = "senha123";
 	
+	private Contatos contato = new Contatos();
+	
 	//Classe Responsavel Pela Conexão Com O Banco De Dados
 	private Connection conexao() {
 		try {
@@ -23,7 +25,7 @@ public class ContatosDAO {
 			Connection conn = DriverManager.getConnection(url, user, password);
 			return conn;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		return null;
 	}
@@ -48,7 +50,7 @@ public class ContatosDAO {
 			conn.close();
 			return lista;
 		} catch (Exception e) {
-			e.getStackTrace();
+			System.out.println(e);
 			return null;
 		}	
 	}
@@ -66,7 +68,7 @@ public class ContatosDAO {
 			pst.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
-			e.getStackTrace();
+			System.out.println(e);
 		}
 	}
 	
@@ -80,8 +82,29 @@ public class ContatosDAO {
 			pst.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
-			e.getStackTrace();
+			System.out.println(e);
 		}
 	}
 	
+	//Metodo Para Encontrar Por ID
+	public Contatos encontrarPorId(Integer id) {
+		String sql = "SELECT * FROM contato WHERE id = ?";
+		try {
+			Connection conn = conexao();
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				contato.setId(rs.getInt(1));
+				contato.setNome(rs.getString(2));
+				contato.setFone(rs.getString(3));
+				contato.setEmail(rs.getString(4));
+			}
+			return contato;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+			return null;
+		}
+	}
 }

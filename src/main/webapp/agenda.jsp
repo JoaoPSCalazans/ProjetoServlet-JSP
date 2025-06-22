@@ -29,7 +29,10 @@
 					<td><%out.print(con.getNome());%></td>
 					<td><%out.print(con.getFone());%></td>
 					<td><%out.print(con.getEmail());%></td>
-					<td><a href="delete?id=<%=con.getId()%>">Excluir</a></td>
+					<td>
+					<a href="delete?id=<%=con.getId()%>">Excluir</a>
+					<a href="editar?id=<%=con.getId()%>">Editar</a>
+					</td>
 				</tr>
 			<%} %>
 		</tbody>
