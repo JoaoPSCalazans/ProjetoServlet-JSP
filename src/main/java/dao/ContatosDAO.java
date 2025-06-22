@@ -17,8 +17,8 @@ public class ContatosDAO {
 
 	private Contatos contato = new Contatos();
 
-	// Classe Responsavel Pela Conexão Com O Banco De Dados
-	private Connection conexao() {
+	// Estabele uma conexão com o banco de dados Mariadb usando JDBC
+	private Connection conexao() { 
 		try {
 			Class.forName(driver);
 			Connection conn = DriverManager.getConnection(url, user, password);
@@ -29,7 +29,7 @@ public class ContatosDAO {
 		return null;
 	}
 
-	// Metodo Para Listar Os Contatos Na Tabela
+	// Retorna uma lista com todos os contatos armazenados no banco de dados
 	public ArrayList<Contatos> listarContatos() {
 		String sql = "SELECT *  FROM contato";
 		ArrayList<Contatos> lista = new ArrayList<>();
@@ -38,12 +38,12 @@ public class ContatosDAO {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				// Armazenar os compos em variaveis
+				// Armazenar o resultados e variaveis locais
 				Integer id = rs.getInt(1);
 				String nome = rs.getString(2);
 				String fone = rs.getString(3);
 				String email = rs.getString(4);
-				// Adicinar a lista
+				
 				lista.add(new Contatos(id, nome, fone, email));
 			}
 			conn.close();
@@ -54,13 +54,13 @@ public class ContatosDAO {
 		}
 	}
 
-	// Adicionar mais um contato na Tabela
+	//Adiciona um contato ao banco de dados
 	public void criarContato(Contatos contato) {
 		String sql = "INSERT INTO contato (nome,fone,email) VALUES (?, ?, ?)";
 		try {
 			Connection conn = conexao();
 			PreparedStatement pst = conn.prepareStatement(sql);
-			// Setando os valores dos campos do sql
+			// Setar os parametros da query sql
 			pst.setString(1, contato.getNome());
 			pst.setString(2, contato.getFone());
 			pst.setString(3, contato.getEmail());
@@ -72,14 +72,15 @@ public class ContatosDAO {
 		}
 	}
 
-	// Metodo Para Deletar um Contato no banco de dados
+	//Deletar um contato com base no ID fornecido
 	public void deletarContato(Integer id) {
 		String sql = "DELETE FROM contato WHERE id = ?";
 		try {
 			Connection conn = conexao();
 			PreparedStatement pst = conn.prepareStatement(sql);
-			// Setando o valor do campo do sql
+			// Setar o parametro da query sql
 			pst.setInt(1, id);
+			
 			pst.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -87,13 +88,13 @@ public class ContatosDAO {
 		}
 	}
 
-	// Metodo Para Encontrar Por ID
+	//Buscar contato com base no ID fornecido
 	public Contatos encontrarPorId(Integer id) {
 		String sql = "SELECT * FROM contato WHERE id = ?";
 		try {
 			Connection conn = conexao();
 			PreparedStatement pst = conn.prepareStatement(sql);
-			// Setando o valor do campo do sql
+			// Setar o parametro da query sql
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
@@ -110,13 +111,13 @@ public class ContatosDAO {
 		}
 	}
 
-	// Metodo Editar Contato
+	//Atualizar atributos de um contato ja existente
 	public void editarContato(Contatos contato) {
 		String sql = "UPDATE contato SET nome = ?,fone = ?,email = ? WHERE id = ?";
 		try {
 			Connection conn = conexao();
 			PreparedStatement pst = conn.prepareStatement(sql);
-			// Setando os valores dos campos do sql
+			// Setar os parametros da query sql
 			pst.setString(1, contato.getNome());
 			pst.setString(2, contato.getFone());
 			pst.setString(3, contato.getEmail());
@@ -125,7 +126,6 @@ public class ContatosDAO {
 			pst.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 	}

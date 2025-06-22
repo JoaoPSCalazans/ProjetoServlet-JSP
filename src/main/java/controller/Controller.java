@@ -34,11 +34,12 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	//Direcionar ao método corresponde ao parametro da url
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = request.getServletPath();
 		if (path.equals("/main")) {
-			listaContatos(request,response);
+			listarContatos(request,response);
 		}else if(path.equals("/insert")) {
 			criarContato(request,response);
 		}else if(path.equals("/delete")) {
@@ -50,19 +51,21 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	protected void listaContatos(HttpServletRequest request, HttpServletResponse response)
+	protected void listarContatos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Contatos> listaDeContatos = dao.listarContatos();
-		request.setAttribute("contatos", listaDeContatos);
+		ArrayList<Contatos> contatos = dao.listarContatos();
+		request.setAttribute("contatos", contatos);
 		RequestDispatcher rd = request.getRequestDispatcher("agenda.jsp");
 		rd.forward(request, response);
 	}
 	
 	protected void criarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//Setar os atributos corresponde aos parametros da url
 		contato.setNome(request.getParameter("nome"));
 		contato.setFone(request.getParameter("fone"));
 		contato.setEmail(request.getParameter("email"));
+		
 		dao.criarContato(contato);
 		//Retornar para agenda.jsp
 		response.sendRedirect("main");
@@ -90,7 +93,7 @@ public class Controller extends HttpServlet {
 	
 	protected void editarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Setar atributos mandados pelo editar.jsp
+		//Setar atributos eviados pela ulr 
 		contato.setNome(request.getParameter("nome"));
 		contato.setFone(request.getParameter("fone"));
 		contato.setEmail(request.getParameter("email"));
