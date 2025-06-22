@@ -31,7 +31,7 @@
 					<td><%out.print(con.getEmail());%></td>
 					<td>
 					<a href="delete?id=<%=con.getId()%>">Excluir</a>
-					<a href="editar?id=<%=con.getId()%>">Editar</a>
+					<a href="selecionar?id=<%=con.getId()%>">Editar</a>
 					</td>
 				</tr>
 			<%} %>

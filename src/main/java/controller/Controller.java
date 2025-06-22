@@ -17,7 +17,7 @@ import dao.ContatosDAO;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = { "/main","/insert","/delete","/editar"})
+@WebServlet(urlPatterns = { "/main","/insert","/delete","/selecionar","/editar"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ContatosDAO dao = new ContatosDAO();
@@ -43,6 +43,8 @@ public class Controller extends HttpServlet {
 			criarContato(request,response);
 		}else if(path.equals("/delete")) {
 			deletarContato(request,response);
+		}else if(path.equals("/selecionar")) {
+			selecionarContato(request,response);
 		}else if(path.equals("/editar")) {
 			editarContato(request,response);
 		}
@@ -62,21 +64,40 @@ public class Controller extends HttpServlet {
 		contato.setFone(request.getParameter("fone"));
 		contato.setEmail(request.getParameter("email"));
 		dao.criarContato(contato);
+		//Retornar para agenda.jsp
 		response.sendRedirect("main");
 	}
 	
 	protected void deletarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		dao.deletarContato(Integer.parseInt(request.getParameter("id")));
+		//Retornar para agenda.jsp
 		response.sendRedirect("main");
+	}
+	
+	protected void selecionarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		contato = dao.encontrarPorId(Integer.parseInt(request.getParameter("id")));
+		//Setar atributos para editar.jsp
+		request.setAttribute("id", contato.getId());
+		request.setAttribute("nome", contato.getNome());
+		request.setAttribute("fone", contato.getFone());
+		request.setAttribute("email", contato.getEmail());
+		//Enviar para editar.jsp
+		RequestDispatcher rd = request.getRequestDispatcher("editar.jsp");
+		rd.forward(request, response);
 	}
 	
 	protected void editarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Testar o metodo EditarContato
-		contato = dao.encontrarPorId(Integer.parseInt(request.getParameter("id")));
-		contato.setNome("Test do Update");
+		//Setar atributos mandados pelo editar.jsp
+		contato.setNome(request.getParameter("nome"));
+		contato.setFone(request.getParameter("fone"));
+		contato.setEmail(request.getParameter("email"));
+		//Fazer Update dos Atributos do Contato
 		dao.editarContato(contato);
+		//Retornar para agenda.jsp
+		response.sendRedirect("main");
 	}
 	
 }
