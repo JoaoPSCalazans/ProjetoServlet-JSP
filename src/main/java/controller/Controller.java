@@ -73,9 +73,10 @@ public class Controller extends HttpServlet {
 	
 	protected void editarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Testar o metodo EncontrarPorId
+		//Testar o metodo EditarContato
 		contato = dao.encontrarPorId(Integer.parseInt(request.getParameter("id")));
-		System.out.println(contato);
+		contato.setNome("Test do Update");
+		dao.editarContato(contato);
 	}
 	
 }
